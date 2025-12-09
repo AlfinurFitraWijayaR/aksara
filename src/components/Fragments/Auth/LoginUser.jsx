@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, History } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { createClientForBrowser } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
@@ -32,7 +32,7 @@ export const LoginUser = ({ user }) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage src={user?.user_metadata.avatar_url} alt={user?.email} />
+          <AvatarImage src={user.user_metadata.avatar_url} alt={user?.email} />
           <AvatarFallback>{getInitials(user?.email)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -46,10 +46,6 @@ export const LoginUser = ({ user }) => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="cursor-pointer">
-            <History className="w-4 h-4 mr-0.5" />
-            History Generate
-          </DropdownMenuItem>
           <DropdownMenuItem className="cursor-pointer" onSelect={handleSignOut}>
             <LogOut className="w-4 h-4 mr-0.5" />
             Log out

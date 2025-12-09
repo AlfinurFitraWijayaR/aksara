@@ -6,10 +6,8 @@ import { History } from "lucide-react";
 import { getAnalysisHistory } from "@/services/authService";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -20,6 +18,10 @@ export default function AnalysisHistory() {
   const [loading, setLoading] = useState(true);
   const resAnalyze = (item) => {
     return JSON.parse(item.analysis_result);
+  };
+
+  const formatDesc = (title) => {
+    return title.split(".").slice(0, -1).join(".");
   };
 
   const loadHistory = async () => {
@@ -59,6 +61,12 @@ export default function AnalysisHistory() {
     );
   }
 
+  const title = (product, desc) => {
+    return `Hasil generate ${product}: ${desc}`;
+  };
+
+  console.log(history.map((item) => resAnalyze(item).data.error));
+
   return (
     <Card className="p-6 h-fit">
       <div className="space-y-4">
@@ -67,50 +75,57 @@ export default function AnalysisHistory() {
           <h2 className="text-lg font-semibold">Riwayat Generate</h2>
         </div>
         <div className="space-y-3">
-          {/* <HistoryAnalyzeModal /> */}
           {history.map((item) => (
             <Dialog key={item.id}>
-              <DialogTrigger asChild className="cursor-pointer mb-3">
+              <DialogTrigger asChild className="cursor-pointer">
                 <DialogHeader>
-                  <DialogTitle>{item.file_name}</DialogTitle>
+                  <DialogTitle>
+                    {title(
+                      formatDesc(item.file_name),
+                      resAnalyze(item).data.deskripsi
+                    )}
+                  </DialogTitle>
                 </DialogHeader>
               </DialogTrigger>
               <DialogContent className="max-h-[80vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogDescription>
-                    History {item.created_at.split("T")[0]},{" "}
-                    <span className="font-medium">{item.file_name}</span>
+                    History{" "}
+                    <span className="font-medium">
+                      {formatDesc(item.file_name)}
+                    </span>
+                    , {item.created_at.split("T")[0]}
                   </DialogDescription>
                 </DialogHeader>
                 <div className="text-lg font-semibold">
-                  1. Rekomendasi Deskripsi e-Commerce
+                  Rekomendasi Deskripsi e-Commerce
+                  <p className="text-sm  font-normal text-gray-700 leading-relaxed">
+                    {resAnalyze(item).data.deskripsi}
+                  </p>
                 </div>
-                <p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed mb-1.5">
-                  {resAnalyze(item).deskripsi}
-                </p>
                 <div className="text-lg font-semibold">
-                  2. Rekomendasi Caption Sosial Media
+                  Rekomendasi Caption Sosial Media
+                  <p className="text-sm  font-normal text-gray-700 leading-relaxed">
+                    {resAnalyze(item).data.caption}
+                  </p>
                 </div>
-                <p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed mb-1.5">
-                  {resAnalyze(item).caption}
-                </p>
                 <div className="text-lg font-semibold">
-                  3. Rekomendasi Ide Konten Sosial Media
-                </div>
-                <div className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed mb-1.5">
-                  <ul className=" ml-6 list-disc [&>li]:mt-2">
-                    {Array.isArray(resAnalyze(item).ideKonten) &&
-                    resAnalyze(item).ideKonten.length > 0 ? (
-                      resAnalyze(item).ideKonten.map((idk, idx) => (
-                        <li key={idx}>
-                          {idk.judul && <em>{idk.judul}: </em>}
-                          {idk.deskripsi ?? JSON.stringify(idk)}
-                        </li>
-                      ))
-                    ) : (
-                      <li>Tidak ada ide konten.</li>
-                    )}
-                  </ul>
+                  Rekomendasi Ide Konten Sosial Media
+                  <div className="text-sm font-normal text-gray-700 whitespace-pre-wrap leading-relaxed">
+                    <ul className=" ml-8 list-disc [&>li]:mt-2">
+                      {Array.isArray(resAnalyze(item).data.ideKonten) &&
+                      resAnalyze(item).data.ideKonten.length > 0 ? (
+                        resAnalyze(item).data.ideKonten.map((idk, idx) => (
+                          <li key={idx}>
+                            {idk.judul && <em>{idk.judul}: </em>}
+                            {idk.deskripsi ?? JSON.stringify(idk)}
+                          </li>
+                        ))
+                      ) : (
+                        <li>Tidak ada ide konten.</li>
+                      )}
+                    </ul>
+                  </div>
                 </div>
               </DialogContent>
             </Dialog>

@@ -11,7 +11,7 @@ export const signIn = async () => {
   });
 
   if (error) {
-    console.log(error);
+    console.error(error);
   }
   redirect(data.url);
 };
@@ -58,6 +58,38 @@ export const saveAnalysisToDatabase = async (analysisData) => {
   }
 };
 
+export const saveUsersLimitToDatabase = async (feature) => {
+  try {
+    const supabase = await createClientForServer();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    const { data, error } = await supabase
+      .from("daily_usage_logs")
+      .insert([
+        {
+          user_id: user.id,
+          feature_name: feature.feature_name,
+          created_at: new Date().toISOString(),
+        },
+      ])
+      .select();
+
+    if (error) throw error;
+    return {
+      success: true,
+      data: data[0],
+    };
+  } catch (error) {
+    console.error("Error saving dialy_usage_logs:", error);
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+};
+
 export const getAnalysisHistory = async (limit = 10) => {
   try {
     const supabase = await createClientForServer();
@@ -68,7 +100,6 @@ export const getAnalysisHistory = async (limit = 10) => {
       .limit(limit);
 
     if (error) throw error;
-    console.log(data);
 
     return {
       success: true,

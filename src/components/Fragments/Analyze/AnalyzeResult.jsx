@@ -1,9 +1,12 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { CheckCircle2 } from "lucide-react";
+import { Typewriter } from "../Animation/Typewriter";
+import { useState } from "react";
 
 export default function AnalysisResult({ result }) {
+  const [step, setStep] = useState(0);
+
   if (!result) return null;
 
   if (result.error) {
@@ -17,45 +20,74 @@ export default function AnalysisResult({ result }) {
   }
 
   return (
-    <Card className="p-6">
-      <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <CheckCircle2 className="h-5 w-5 text-green-500" />
-          <h2 className="text-lg font-semibold">Hasil Generate</h2>
+    <Card className="p-4 md:p-6 w-full max-w-full border-t-4 border-t-purple-600">
+      <div className="space-y-4 w-full">
+        {/* BAGIAN 1: INTRO */}
+        <div className="min-h-[24px]">
+          <p className="text-sm text-gray-700 leading-relaxed pb-5 break-words">
+            <Typewriter text={result.mulai} onComplete={() => setStep(1)} />
+          </p>
         </div>
 
-        <div className="">
-          <div className="text-lg font-semibold p-4">
-            1. Rekomendasi Deskripsi e-Commerce
+        {/* BAGIAN 2: DESKRIPSI */}
+        {step >= 1 && (
+          <div className="fade-in w-full">
+            <div className="text-lg font-semibold animate-pulse-once">
+              Rekomendasi Deskripsi e-Commerce
+            </div>
+            {/* Tambahkan 'break-words' & 'w-full' */}
+            <p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed pb-5 break-words w-full">
+              <Typewriter
+                text={result.deskripsi}
+                onComplete={() => setStep(2)}
+              />
+            </p>
           </div>
-          <p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
-            {result.deskripsi}
-          </p>
-          <div className="text-lg font-semibold p-4">
-            2. Rekomendasi Caption Sosial Media
+        )}
+
+        {/* BAGIAN 3: CAPTION */}
+        {step >= 2 && (
+          <div className="w-full">
+            <div className="text-lg font-semibold">
+              Rekomendasi Caption Sosial Media
+            </div>
+            {/* Tambahkan 'break-words' & 'w-full' */}
+            <p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed pb-5 break-words w-full">
+              <Typewriter text={result.caption} onComplete={() => setStep(3)} />
+            </p>
           </div>
-          <p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
-            {result.caption}
-          </p>
-          <div className="text-lg font-semibold p-4">
-            3. Rekomendasi Ide Konten Sosial Media
+        )}
+
+        {/* BAGIAN 4: IDE KONTEN */}
+        {step >= 3 && (
+          <div className="w-full">
+            <div className="text-lg font-semibold">
+              Rekomendasi Ide Konten Sosial Media
+            </div>
+            {/* Tambahkan 'break-words' */}
+            <div className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed break-words w-full">
+              <ul className="ml-4 md:ml-8 list-disc [&>li]:mt-2">
+                {" "}
+                {/* Kurangi margin kiri di mobile */}
+                {Array.isArray(result.ideKonten) &&
+                result.ideKonten.length > 0 ? (
+                  result.ideKonten.map((item, idx) => (
+                    <li
+                      key={idx}
+                      className="animate-in fade-in slide-in-from-bottom-2 duration-500"
+                      style={{ animationDelay: `${idx * 200}ms` }}
+                    >
+                      {item.judul && <em>{item.judul}: </em>}
+                      {item.deskripsi ?? JSON.stringify(item)}
+                    </li>
+                  ))
+                ) : (
+                  <li>Tidak ada ide konten.</li>
+                )}
+              </ul>
+            </div>
           </div>
-          <div className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
-            <ul className=" ml-6 list-disc [&>li]:mt-2">
-              {Array.isArray(result.ideKonten) &&
-              result.ideKonten.length > 0 ? (
-                result.ideKonten.map((item, idx) => (
-                  <li key={idx}>
-                    {item.judul && <em>{item.judul}: </em>}
-                    {item.deskripsi ?? JSON.stringify(item)}
-                  </li>
-                ))
-              ) : (
-                <li>Tidak ada ide konten.</li>
-              )}
-            </ul>
-          </div>
-        </div>
+        )}
       </div>
     </Card>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Upload, X, Image as ImageIcon } from "lucide-react";
+import { Activity, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -21,7 +21,6 @@ export default function ImageUpload({ onAnalyze, isAnalyzing }) {
 
     if (!file) return;
 
-    // Validate file
     const validation = validateImageFile(file);
     if (!validation.valid) {
       setError(validation.error);
@@ -30,7 +29,6 @@ export default function ImageUpload({ onAnalyze, isAnalyzing }) {
       return;
     }
 
-    // Set file and preview
     setSelectedFile(file);
     const base64 = await fileToBase64(file);
     setPreview(base64);
@@ -55,6 +53,18 @@ export default function ImageUpload({ onAnalyze, isAnalyzing }) {
     }
   };
 
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      handleFileSelect({ target: { files } });
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <Card className="p-6">
       <div className="space-y-4">
@@ -63,7 +73,7 @@ export default function ImageUpload({ onAnalyze, isAnalyzing }) {
             Upload Gambar untuk Generate
           </Label>
           <p className="text-sm text-muted-foreground mt-1">
-            Format yang didukung: SVG, JPG, JPEG, PNG (Maks. 2MB)
+            Format yang didukung: SVG, JPG, JPEG, PNG (Maks. 1MB)
           </p>
         </div>
 
@@ -76,6 +86,8 @@ export default function ImageUpload({ onAnalyze, isAnalyzing }) {
         {!preview ? (
           <div
             onClick={() => fileInputRef.current?.click()}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
             className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-gray-400 transition-colors cursor-pointer"
           >
             <Upload className="mx-auto h-12 w-12 text-gray-400" />
@@ -93,7 +105,7 @@ export default function ImageUpload({ onAnalyze, isAnalyzing }) {
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="relative flex items-center gap-2 text-sm text-gray-600 rounded-lg overflow-hidden border">
+            <div className="relative flex items-center gap-2 text-sm text-gray-600 rounded-lg overflow-hidden border py-2">
               {preview ? (
                 <Image src={preview} alt="preview" width={50} height={50} />
               ) : null}
@@ -105,7 +117,7 @@ export default function ImageUpload({ onAnalyze, isAnalyzing }) {
                 onClick={handleRemoveFile}
                 variant="destructive"
                 size="icon"
-                className="absolute top-2 right-2"
+                className="absolute top-4 right-3 text-white cursor-pointer hover:bg-red-500"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -114,10 +126,17 @@ export default function ImageUpload({ onAnalyze, isAnalyzing }) {
             <Button
               onClick={handleAnalyze}
               disabled={isAnalyzing}
-              className="w-full"
+              className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 text-white font-bold shadow-lg shadow-purple-200 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
               size="lg"
             >
-              {isAnalyzing ? "Menggenerate..." : "Generate Gambar"}
+              {isAnalyzing ? (
+                <span className="flex items-center gap-2">
+                  <Activity className="w-5 h-5 animate-spin" /> Aksara sedang
+                  berpikir....
+                </span>
+              ) : (
+                "Generate sekarang"
+              )}
             </Button>
           </div>
         )}

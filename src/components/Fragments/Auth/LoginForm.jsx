@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "@/services/authService";
+import { Activity } from "lucide-react";
 
-export default function LoginForm() {
+export default function LoginForm(z) {
   const [loading, setLoading] = useState(false);
 
   const handleGoogleLogin = async () => {
@@ -28,7 +29,13 @@ export default function LoginForm() {
         disabled={loading}
       >
         <FcGoogle className="w-10 h-10" />
-        {loading ? "Tunggu Sebentar..." : "Lanjutkan dengan Google"}
+        {loading ? (
+          <span className="flex items-center gap-2">
+            <Activity className="w-5 h-5 animate-spin" /> Tunggu sebentar....
+          </span>
+        ) : (
+          "Lanjutkan dengan Google"
+        )}
       </Button>
       <p className="text-muted-foreground text-xs text-center mt-3">
         Dengan mendaftar, Anda setuju dengan{" "}

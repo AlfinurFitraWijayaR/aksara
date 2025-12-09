@@ -1,9 +1,32 @@
+import { createClientForServer } from "@/lib/supabase/server";
 import { uploadImageToSupabase } from "@/services/analyzeService";
-import { saveAnalysisToDatabase } from "@/services/authService";
-import { analyzeImage } from "@/services/modelService";
+import {
+  saveAnalysisToDatabase,
+  saveUsersLimitToDatabase,
+} from "@/services/authService";
+import { analyzeImage, checkDailyLimit } from "@/services/modelService";
+import { timeNow } from "@/utils/generate";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
+  const supabase = await createClientForServer();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { allowed } = await checkDailyLimit(user.id, "analyze");
+  if (!allowed) {
+    return NextResponse.json(
+      {
+        error: `Kamu telah mencapai batas limit, silahkan coba lagi besok jam ${timeNow}`,
+      },
+      { status: 429 }
+    );
+  }
+
   try {
     const formData = await req.formData();
     const file = formData.get("file");
@@ -25,10 +48,23 @@ export async function POST(req) {
       );
     }
 
+    const saveUsersLimit = await saveUsersLimitToDatabase({
+      feature_name: "analyze",
+    });
+    if (!saveUsersLimit.success) {
+      return NextResponse.json(
+        {
+          error:
+            "Gagal menyimpan hasil users limit ke DB: " + saveUsersLimit.error,
+        },
+        { status: 500 }
+      );
+    }
+
     const saveResult = await saveAnalysisToDatabase({
       imageUrl: uploadImage.url,
       imagePath: uploadImage.path,
-      analysisResult: result.data,
+      analysisResult: result,
       fileName: file.name,
       fileSize: file.size,
       fileType: file.type,
@@ -43,38 +79,15 @@ export async function POST(req) {
 
     return NextResponse.json(result);
   } catch (error) {
-    console.error("Terjadi kesalahan di server: ", error);
-    return NextResponse.json(
-      { success: false, error: err.message },
-      { status: 500 }
-    );
+    if (
+      error.message?.includes("Quota exceeded") ||
+      error.message?.includes("quota")
+    ) {
+      return new Response(JSON.stringify({ error: "QUOTA_LIMIT" }), {
+        status: 428,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+    return NextResponse.json({ success: false, error: error }, { status: 500 });
   }
 }
-
-// export async function GET(req) {
-//   try {
-//     const url = new URL(req.url);
-//     const limit = parseInt(url.searchParams.get("limit") || "5", 10);
-//     const { data, error } = await supabaseClient
-//       .from("analyses")
-//       .select("*")
-//       .order("created_at", { ascending: false })
-//       .limit(limit);
-
-//     if (error) {
-//       console.error("Supabase GET error:", error);
-//       return NextResponse.json(
-//         { success: false, message: error.message },
-//         { status: 500 }
-//       );
-//     }
-
-//     return NextResponse.json({ success: true, data });
-//   } catch (err) {
-//     console.error(err);
-//     return NextResponse.json(
-//       { success: false, message: err.message },
-//       { status: 500 }
-//     );
-//   }
-// }

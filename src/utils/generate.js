@@ -65,3 +65,9 @@ export function parseAnalysisResult(text) {
     data: text,
   };
 }
+
+export const timeNow = new Date().toLocaleString("id-ID", {
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+});
