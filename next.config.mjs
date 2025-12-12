@@ -2,11 +2,16 @@
 const nextConfig = {
   /* config options here */
   images: {
-    domains: ["lh3.googleusercontent.com", "iuiilprdunhgwwybggkw.supabase.co"],
     remotePatterns: [
       {
         protocol: "https",
         hostname: "lh3.googleusercontent.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "iuiilprdunhgwwybggkw.supabase.co",
         port: "",
         pathname: "/**",
       },

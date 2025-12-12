@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 // Daftar route yang memerlukan autentikasi
 const protectedRoutes = ["/analyze", "/business-health"];
 
-export async function middleware(request) {
+export async function proxy(request) {
   const { pathname } = request.nextUrl;
 
   // Cek apakah route saat ini memerlukan autentikasi
