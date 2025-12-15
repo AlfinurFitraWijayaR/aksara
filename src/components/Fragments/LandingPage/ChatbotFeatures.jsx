@@ -19,7 +19,7 @@ export const ChatbotFeature = () => {
               </Avatar>
             </div>
             <div>
-              <h4 className="text-sm font-bold text-slate-800">Sara</h4>
+              <h4 className="text-sm font-bold text-slate-800">Ama</h4>
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@ export const ChatbotFeature = () => {
           >
             <div className="bg-white p-2 rounded-2xl rounded-tl-none border border-slate-100 shadow-sm w-full max-w-[95%]">
               <p className="text-sm text-slate-700 leading-relaxed">
-                Halo, saya Sara. Ada yang bisa dibantu?
+                Halo, saya Ama. Ada yang bisa dibantu?
               </p>
             </div>
           </motion.div>

@@ -35,7 +35,7 @@ export default function AuthModal() {
         <DialogHeader className="text-center">
           <DialogTitle className="text-2xl font-bold">Masuk</DialogTitle>
           <DialogDescription className="text-gray-500 mb-3">
-            Login untuk mendapatkan akses fitur Aksara.
+            Login untuk mendapatkan akses fitur ASMA.
           </DialogDescription>
         </DialogHeader>
         <LoginForm redirectPath={redirectPath} />

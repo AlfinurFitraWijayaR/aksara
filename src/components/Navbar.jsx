@@ -20,7 +20,7 @@ export const Navbar = async () => {
             <div className="p-2 bg-purple-600 rounded-lg shadow-purple-200 shadow-md">
               <Activity className="w-5 h-5 text-white" />
             </div>
-            <h1 className="text-lg font-bold text-slate-800">AKSARA</h1>
+            <h1 className="text-lg font-bold text-slate-800">ASMA</h1>
           </div>
         </Link>
 

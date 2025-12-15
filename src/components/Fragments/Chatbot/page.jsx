@@ -28,7 +28,7 @@ export default function Chatbot() {
       initialMessages: [
         {
           role: "assistant",
-          content: "Halo, saya Sara. Ada yang bisa saya bantu hari ini?",
+          content: "Halo, saya Ama. Ada yang bisa saya bantu hari ini?",
         },
       ],
     });
@@ -67,7 +67,7 @@ export default function Chatbot() {
           >
             {!isChatOpen && (
               <div className="relative px-4 py-2 bg-white shadow-xl rounded-2xl border text-sm text-gray-800 max-w-[200px] animate-chat-pop">
-                Hai, perlu bantuan?
+                Perlu bantuan?
                 <div className="absolute -bottom-2 right-5 w-4 h-4 bg-white border-b border-r rotate-45"></div>
               </div>
             )}
@@ -106,7 +106,7 @@ export default function Chatbot() {
                     <AvatarImage src="sara.png" alt="sara" />
                   </Avatar>
                   <div>
-                    <CardTitle className="text-lg">Sara</CardTitle>
+                    <CardTitle className="text-lg">Ama</CardTitle>
                   </div>
                 </div>
                 <Button
@@ -145,7 +145,7 @@ export default function Chatbot() {
                         size={12}
                         className="animate-spin text-violet-500"
                       />
-                      Aksara sedang berpikir...
+                      ASMA sedang berpikir...
                     </div>
                   )}
                   {error && (

@@ -1,11 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Sparkles,
-  Image as ImageIcon,
-  MessageSquare,
-  Activity,
-} from "lucide-react";
+import { Sparkles, MessageSquare, Stethoscope } from "lucide-react";
 import { HealthCheckFeature } from "./HealthCheckFeature";
 import { ChatbotFeature } from "./ChatbotFeatures";
 import { AnalyzeImageFeature } from "./ImageToTextFeature";
@@ -15,8 +10,8 @@ export default function FeatureShowcase() {
 
   const tabs = [
     { id: "analyze-image", label: "AI Analyze Image", icon: Sparkles },
-    { id: "chatbot", label: "Aksara AI Chat", icon: MessageSquare },
-    { id: "health-check", label: "Business Health Check", icon: Activity },
+    { id: "chatbot", label: "ASMA AI Chat", icon: MessageSquare },
+    { id: "health-check", label: "Business Health Check", icon: Stethoscope },
   ];
 
   return (

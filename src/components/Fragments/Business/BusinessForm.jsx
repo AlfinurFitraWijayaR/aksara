@@ -215,7 +215,7 @@ export default function BusinessForm({
         >
           {isCalculating ? (
             <span className="flex items-center gap-2">
-              <Activity className="w-5 h-5 animate-spin" /> Aksara sedang
+              <Activity className="w-5 h-5 animate-spin" /> ASMA sedang
               menganalisis...
             </span>
           ) : (

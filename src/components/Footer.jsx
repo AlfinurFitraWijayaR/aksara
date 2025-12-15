@@ -12,7 +12,7 @@ export function Footer() {
               <div className="p-2 bg-purple-600 rounded-lg shadow-purple-200 shadow-md">
                 <Activity className="w-5 h-5 text-white" />
               </div>
-              <span className="text-lg font-bold text-slate-800">AKSARA</span>
+              <span className="text-lg font-bold text-slate-800">ASMA</span>
             </div>
             <p className="text-slate-500 text-sm mb-6 max-w-xs">
               Platform asisten marketing AI yang dirancang untuk membantu UMKM
@@ -53,7 +53,7 @@ export function Footer() {
 
         <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-slate-400">
-            ©2025 Aksara. All rights reserved.
+            ©2025 ASMA. All rights reserved.
           </p>
           <div className="text-xs text-slate-400 flex gap-6">
             <span>Created with ❤️ by Kelompok 1C</span>

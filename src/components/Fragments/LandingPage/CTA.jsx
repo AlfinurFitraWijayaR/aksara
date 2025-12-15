@@ -27,7 +27,7 @@ export default function CTA() {
                 onClick={openChat}
                 className="cursor-pointer px-8 py-4 rounded-full border border-slate-600 text-white font-medium hover:bg-slate-800 transition-all"
               >
-                Hubungi Sara
+                Hubungi Ama
               </button>
             </div>
           </div>

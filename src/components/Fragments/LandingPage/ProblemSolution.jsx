@@ -40,7 +40,7 @@ export default function ProblemSolution() {
             </ul>
           </div>
 
-          {/* The Aksara Way */}
+          {/* The ASMA Way */}
           <motion.div
             whileHover={{ scale: 1.02 }}
             className="p-8 rounded-3xl bg-white/60 backdrop-blur-md border border-violet-100 shadow-xl shadow-violet-100 relative overflow-hidden group"
@@ -51,7 +51,7 @@ export default function ProblemSolution() {
               <span className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600">
                 <CheckCircle2 size={16} />
               </span>
-              Pakai Aksara
+              Pakai ASMA
             </h3>
             <ul className="space-y-4 relative z-10">
               <li className="flex items-start gap-3 text-slate-700 font-medium">

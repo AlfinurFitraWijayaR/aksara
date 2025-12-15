@@ -22,14 +22,14 @@ export default function GlassCard() {
         {/* User Message */}
         <div className="flex justify-end">
           <div className="bg-slate-800 text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm max-w-[85%] shadow-lg">
-            Halo sara, di Aksara bisa apa saja?
+            Halo sara, di ASMA bisa apa saja?
           </div>
         </div>
 
         {/* AI Generating Indicator */}
         <div className="flex items-center gap-2 text-xs text-slate-400 ml-2">
           <Sparkles size={12} className="animate-spin text-violet-500" />
-          Aksara sedang menulis...
+          ASMA sedang menulis...
         </div>
 
         {/* AI Response */}

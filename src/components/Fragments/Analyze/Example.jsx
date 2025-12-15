@@ -84,7 +84,7 @@ export const Example = () => {
                 <div className="flex items-center gap-2 mb-4">
                   <Sparkles size={16} className="text-violet-600" />
                   <h4 className="font-semibold text-slate-900 text-lg">
-                    Hasil Aksara:
+                    Hasil ASMA:
                   </h4>
                 </div>
 
