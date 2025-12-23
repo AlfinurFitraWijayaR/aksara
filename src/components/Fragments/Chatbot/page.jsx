@@ -18,7 +18,7 @@ import { MarkdownRenderer } from "./MarkdownRenderer";
 import { useChatUI } from "@/context/ChatContext";
 
 export default function Chatbot() {
-  const { isChatOpen, toggleChat, openChat, closeChat } = useChatUI();
+  const { isChatOpen, toggleChat, closeChat } = useChatUI();
   const [ShowChatIcon, setShowChatIcon] = useState(false);
   const chatIconRef = useRef(null);
   const scrollRef = useRef(null);
@@ -153,7 +153,7 @@ export default function Chatbot() {
                       {error.message?.includes("429") ||
                       error.message?.includes("QUOTA_LIMIT")
                         ? "LIMIT MODEL HABIS"
-                        : `Error: ${error.message}`}
+                        : JSON.parse(error.message).error}
                     </div>
                   )}
                   <div ref={scrollRef}></div>

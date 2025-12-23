@@ -5,6 +5,7 @@ import { saveUsersLimitToDatabase } from "@/services/authService";
 import { checkDailyLimit } from "@/services/modelService";
 import { timeNow } from "@/utils/generate";
 import { NextResponse } from "next/server";
+import { createClientForServer } from "@/lib/supabase/server";
 
 export async function POST(req) {
   const supabase = await createClientForServer();
@@ -31,20 +32,6 @@ export async function POST(req) {
       return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
     }
 
-    const saveUsersLimit = await saveUsersLimitToDatabase({
-      feature_name: "business-health",
-    });
-    if (!saveUsersLimit.success) {
-      return NextResponse.json(
-        {
-          error:
-            "Gagal menyimpan hasil limit business health ke DB: " +
-            saveUsersLimit.error,
-        },
-        { status: 500 }
-      );
-    }
-
     const required = [
       "kategori",
       "omzet",
@@ -65,10 +52,30 @@ export async function POST(req) {
 
     const prompt = promptBusinessHealth(body);
     const result = await analyzeBusinessHealth(prompt);
+    if (!result || !result.data) {
+      return NextResponse.json(
+        { error: "AI gagal menghasilkan data analisis bisnis yang valid" },
+        { status: 500 }
+      );
+    }
+
+    const saveUsersLimit = await saveUsersLimitToDatabase({
+      feature_name: "business-health",
+    });
+    if (!saveUsersLimit.success) {
+      return NextResponse.json(
+        {
+          error:
+            "Gagal menyimpan hasil limit business health ke DB: " +
+            saveUsersLimit.error,
+        },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ success: true, data: result.data });
   } catch (err) {
     console.error(err);
-    return NextResponse.json({ error: String(err) }, { status: 500 });
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }

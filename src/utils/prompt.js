@@ -22,7 +22,7 @@ Produce output in natural, engaging, persuasive, professional Indonesian appropr
 
 format JSON = {
 1. mulai
-   - Create an opening paragraph about the Product with a minimum of 10 words. For example (baik, saya akan menganalisis produk ........).
+   - Analyze the uploaded image, then write a friendly and enthusiastic opening paragraph (tone: friendly). Be sure to mention the specific name of the product/object you see in the image (e.g., "Wah, Kopi Susunya terlihat segar!" atau "Desain bajunya keren banget!”). Give a little praise and end with a sentence inviting readers to see the copywriting results below..
 
 2. deskripsi
    - Create a Product Description of at least 150 words. Use "Feature-Benefit" copywriting techniques".
@@ -58,7 +58,7 @@ Analisis visual gambar secara mendalam. Tentukan apakah gambar tersebut adalah:
 JIKA gambar adalah foto selfie (wajah manusia tanpa memegang produk), pemandangan alam sembarang, screenshot/tangkapan layar, interior tanpa produk, dokumen teks buram, konten eksplisit, atau gambar abstrak yang tidak jelas maksud komersialnya:
 -> STOP PROSES.
 -> Keluarkan output HANYA pesan error berupa JSON sebagai berikut:
-"Maaf, kami mendeteksi gambar ini sepertinya bukan foto produk UMKM. Silakan unggah foto produk yang jelas (makanan, kerajinan, pakaian, dll) agar saya bisa membantu membuatkan konten promosi."
+"Maaf, kami tidak bisa mendeteksi gambar ini, sepertinya itu bukan foto produk UMKM. Silakan unggah foto produk yang jelas (makanan, kerajinan, pakaian, dll) agar saya bisa membantu membuatkan konten promosi."
 
 JIKA gambar valid (terdeteksi sebagai produk), LANJUT KE LANGKAH 2.
 
@@ -67,7 +67,7 @@ Hasilkan output dalam Bahasa Indonesia yang natural, menarik, persuasif, profess
 
 format JSON = {
 1. mulai
-   - Buat paragraf pembuka Produk minimal 10 kata. Misalkan (baik, saya akan menganalisis produk ........).
+   - Analisis gambar yang diunggah, lalu buat paragraf pembuka yang ramah dan antusias (tone: friendly). Wajib sebutkan nama produk/objek yang kamu lihat di gambar secara spesifik (misal: 'Wah, Kopi Susunya terlihat segar!' atau 'Desain bajunya keren banget!'). Berikan sedikit pujian dan akhiri dengan kalimat ajakan untuk melihat hasil copywriting di bawah.
 
 2. deskripsi
    - Buat Deskripsi Produk minimal 150 kata. Gunakan teknik copywriting "Feature-Benefit".
@@ -211,7 +211,7 @@ Return ONLY valid JSON without markdown (\`\`\`), backticks, or introductory tex
   "analysis_summary": (string, ringkasan kondisi bisnis dalam 2 kalimat tajam),
   "key_metrics": {
     "gross_margin_percent": (string, contoh "45%"),
-    "net_profit_estimated": (string, estimasi nominal laba bersih dalam format Rupiah IDR)
+    "net_profit_estimated": (string, estimasi nominal laba bersih dalam format Rupiah IDR, contoh 2.000.000 = Rp. 2.000.000)
   },
   "risk_factors": [
     (array string, sebutkan 1-2 risiko terbesar, misal: "Margin terlalu tipis (<10%)")
@@ -267,7 +267,7 @@ Kembalikan HANYA JSON valid tanpa markdown (\`\`\`) atau teks pembuka. Struktur 
   "analysis_summary": (string, ringkasan kondisi bisnis dalam 2 kalimat tajam),
   "key_metrics": {
     "gross_margin_percent": (string, contoh "45%"),
-    "net_profit_estimated": (string, estimasi nominal laba bersih dalam format Rupiah IDR)
+    "net_profit_estimated": (string, estimasi nominal laba bersih dalam format Rupiah IDR. contoh 2.000.000 = Rp. 2.000.000)
   },
   "risk_factors": [
     (array string, sebutkan 1-2 risiko terbesar, misal: "Margin terlalu tipis (<10%)")

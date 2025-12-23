@@ -33,10 +33,10 @@ export async function POST(req) {
     const imageBase64 = formData.get("imageBase64");
 
     if (!file || !imageBase64) {
-      return {
-        isValid: false,
-        error: "File dan image base64 diperlukan",
-      };
+      return NextResponse.json(
+        { error: "File dan image base64 diperlukan" },
+        { status: 400 }
+      );
     }
 
     const result = await analyzeImage(file, imageBase64);
@@ -76,7 +76,6 @@ export async function POST(req) {
         { status: 500 }
       );
     }
-
     return NextResponse.json(result);
   } catch (error) {
     if (
@@ -88,6 +87,9 @@ export async function POST(req) {
         headers: { "Content-Type": "application/json" },
       });
     }
-    return NextResponse.json({ success: false, error: error }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: 500 }
+    );
   }
 }

@@ -62,10 +62,8 @@ export default function AnalysisHistory() {
   }
 
   const title = (product, desc) => {
-    return `Hasil generate ${product}: ${desc}`;
+    return `${product}: ${desc}`;
   };
-
-  console.log(history.map((item) => resAnalyze(item).data.error));
 
   return (
     <Card className="p-6 h-fit">
@@ -97,36 +95,42 @@ export default function AnalysisHistory() {
                     , {item.created_at.split("T")[0]}
                   </DialogDescription>
                 </DialogHeader>
-                <div className="text-lg font-semibold">
-                  Rekomendasi Deskripsi e-Commerce
-                  <p className="text-sm  font-normal text-gray-700 leading-relaxed">
-                    {resAnalyze(item).data.deskripsi}
-                  </p>
-                </div>
-                <div className="text-lg font-semibold">
-                  Rekomendasi Caption Sosial Media
-                  <p className="text-sm  font-normal text-gray-700 leading-relaxed">
-                    {resAnalyze(item).data.caption}
-                  </p>
-                </div>
-                <div className="text-lg font-semibold">
-                  Rekomendasi Ide Konten Sosial Media
-                  <div className="text-sm font-normal text-gray-700 whitespace-pre-wrap leading-relaxed">
-                    <ul className=" ml-8 list-disc [&>li]:mt-2">
-                      {Array.isArray(resAnalyze(item).data.ideKonten) &&
-                      resAnalyze(item).data.ideKonten.length > 0 ? (
-                        resAnalyze(item).data.ideKonten.map((idk, idx) => (
-                          <li key={idx}>
-                            {idk.judul && <em>{idk.judul}: </em>}
-                            {idk.deskripsi ?? JSON.stringify(idk)}
-                          </li>
-                        ))
-                      ) : (
-                        <li>Tidak ada ide konten.</li>
-                      )}
-                    </ul>
-                  </div>
-                </div>
+                {resAnalyze(item).data.error ? (
+                  <div>{resAnalyze(item).data.error}</div>
+                ) : (
+                  <>
+                    <div className="text-lg font-semibold">
+                      Rekomendasi Deskripsi e-Commerce
+                      <p className="text-sm  font-normal text-gray-700 leading-relaxed">
+                        {resAnalyze(item).data.deskripsi}
+                      </p>
+                    </div>
+                    <div className="text-lg font-semibold">
+                      Rekomendasi Caption Sosial Media
+                      <p className="text-sm  font-normal text-gray-700 leading-relaxed">
+                        {resAnalyze(item).data.caption}
+                      </p>
+                    </div>
+                    <div className="text-lg font-semibold">
+                      Rekomendasi Ide Konten Sosial Media
+                      <div className="text-sm font-normal text-gray-700 whitespace-pre-wrap leading-relaxed">
+                        <ul className=" ml-8 list-disc [&>li]:mt-2">
+                          {Array.isArray(resAnalyze(item).data.ideKonten) &&
+                          resAnalyze(item).data.ideKonten.length > 0 ? (
+                            resAnalyze(item).data.ideKonten.map((idk, idx) => (
+                              <li key={idx}>
+                                {idk.ide && <b>{idk.ide}: </b>}
+                                {idk.alasan ?? JSON.stringify(idk)}
+                              </li>
+                            ))
+                          ) : (
+                            <li>Tidak ada ide konten.</li>
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+                  </>
+                )}
               </DialogContent>
             </Dialog>
           ))}

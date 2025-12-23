@@ -1,27 +1,34 @@
 import { streamText } from "ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import { promptChatbot } from "@/utils/prompt";
 import { NextResponse } from "next/server";
+import { buildPrompt, timeNow } from "@/utils/generate";
+import { saveUsersLimitToDatabase } from "@/services/authService";
+import { checkDailyLimit } from "@/services/modelService";
+import { createClientForServer } from "@/lib/supabase/server";
 
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GEMINI_API_KEY || "",
 });
 
-const generateId = () => Math.random().toString(36).slice(2, 15);
-const buildPrompt = (messages) => [
-  {
-    id: generateId(),
-    role: "user",
-    content: promptChatbot.content,
-  },
-  ...messages.map((msg) => ({
-    id: msg.id || generateId(),
-    role: msg.role,
-    content: msg.content,
-  })),
-];
-
 export async function POST(req) {
+  const supabase = await createClientForServer();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { allowed } = await checkDailyLimit(user.id, "chatbot");
+  if (!allowed) {
+    return NextResponse.json(
+      {
+        error: `Kamu telah mencapai batas limit, silahkan coba lagi bulan depan`,
+      },
+      { status: 429 }
+    );
+  }
+
   try {
     const { messages } = await req.json();
     const stream = await streamText({
@@ -29,6 +36,20 @@ export async function POST(req) {
       messages: buildPrompt(messages),
       temperature: 0.8,
     });
+
+    const saveUsersLimit = await saveUsersLimitToDatabase({
+      feature_name: "chatbot",
+    });
+    if (!saveUsersLimit.success) {
+      return NextResponse.json(
+        {
+          error:
+            "Gagal menyimpan hasil limit business health ke DB: " +
+            saveUsersLimit.error,
+        },
+        { status: 500 }
+      );
+    }
     return stream?.toDataStreamResponse();
   } catch (error) {
     if (

@@ -51,7 +51,6 @@ export default function AnalysisResult({ result }) {
             <div className="text-lg font-semibold">
               Rekomendasi Caption Sosial Media
             </div>
-            {/* Tambahkan 'break-words' & 'w-full' */}
             <p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed pb-5 break-words w-full">
               <Typewriter text={result.caption} onComplete={() => setStep(3)} />
             </p>
@@ -64,11 +63,9 @@ export default function AnalysisResult({ result }) {
             <div className="text-lg font-semibold">
               Rekomendasi Ide Konten Sosial Media
             </div>
-            {/* Tambahkan 'break-words' */}
-            <div className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed break-words w-full">
-              <ul className="ml-4 md:ml-8 list-disc [&>li]:mt-2">
+            <div className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed pb-5 break-words w-full">
+              <ul className="ml-4 md:ml-8 list-disc">
                 {" "}
-                {/* Kurangi margin kiri di mobile */}
                 {Array.isArray(result.ideKonten) &&
                 result.ideKonten.length > 0 ? (
                   result.ideKonten.map((item, idx) => (
@@ -77,8 +74,8 @@ export default function AnalysisResult({ result }) {
                       className="animate-in fade-in slide-in-from-bottom-2 duration-500"
                       style={{ animationDelay: `${idx * 200}ms` }}
                     >
-                      {item.judul && <em>{item.judul}: </em>}
-                      {item.deskripsi ?? JSON.stringify(item)}
+                      {item.ide && <b>{item.ide}: </b>}
+                      {item.alasan ?? JSON.stringify(item)}
                     </li>
                   ))
                 ) : (

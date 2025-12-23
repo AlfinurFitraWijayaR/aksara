@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const Typewriter = ({ text, speed = 15, onComplete }) => {
+export const Typewriter = ({ text, speed = 8, onComplete }) => {
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export const Typewriter = ({ text, speed = 15, onComplete }) => {
       if (index === text.length) {
         clearInterval(intervalId);
         if (onComplete) {
-          setTimeout(() => onComplete(), 200); // Jeda dikit biar natural
+          setTimeout(() => onComplete(), 200);
         }
       }
     }, speed);

@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
 
 // Daftar route yang memerlukan autentikasi
-const protectedRoutes = ["/analyze", "/business-health"];
+const protectedRoutes = ["/content-digital", "/business-health"];
 
 export async function proxy(request) {
   const { pathname } = request.nextUrl;
@@ -63,5 +63,5 @@ export async function proxy(request) {
 
 // Config untuk menentukan route mana yang akan di-handle oleh middleware
 export const config = {
-  matcher: ["/analyze/:path*", "/business-health/:path*"],
+  matcher: ["/content-digital/:path*", "/business-health/:path*"],
 };

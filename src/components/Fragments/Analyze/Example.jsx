@@ -35,7 +35,7 @@ export const Example = () => {
   const activeContent = examples[activeTab];
 
   return (
-    <section className="pb-20">
+    <section className="py-20">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-8">
           <h2 className="text-3xl lg:text-4xl font-bold text-slate-900">

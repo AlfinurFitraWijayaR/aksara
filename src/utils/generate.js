@@ -1,3 +1,5 @@
+import { promptChatbot } from "./prompt";
+
 export const validateRequest = (formData) => {
   const file = formData.get("file");
   const imageBase64 = formData.get("imageBase64");
@@ -25,12 +27,28 @@ export function createImageParts(base64Image, mimeType) {
   return [
     {
       inlineData: {
-        data: base64Image,
         mimeType: mimeType,
+        data: base64Image,
       },
     },
   ];
 }
+
+export const buildPrompt = (messages) => {
+  const generateId = () => Math.random().toString(36).slice(2, 15);
+  return [
+    {
+      id: generateId(),
+      role: "user",
+      content: promptChatbot.content,
+    },
+    ...messages.map((msg) => ({
+      id: msg.id || generateId(),
+      role: msg.role,
+      content: msg.content,
+    })),
+  ];
+};
 
 export function extractTextFromResponse(response) {
   return typeof response.text === "function"

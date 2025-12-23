@@ -7,8 +7,8 @@ export default function HoverDropdownAnimated({
   label = "Tools",
   items = [
     {
-      label: "Analyze Image Generator",
-      href: `${process.env.NEXT_PUBLIC_SITE_URL}/analyze`,
+      label: "Content Digital Generator",
+      href: `${process.env.NEXT_PUBLIC_SITE_URL}/content-digital`,
     },
     {
       label: "Business Health Check",

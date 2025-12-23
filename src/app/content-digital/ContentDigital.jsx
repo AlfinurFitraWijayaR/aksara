@@ -9,9 +9,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Activity } from "lucide-react";
 import { useState } from "react";
 
-export default function AnalyzePage() {
+export default function ContentDigital() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [currentResult, setCurrentResult] = useState(null);
+  const [resultKey, setResultKey] = useState(0);
   const [error, setError] = useState(null);
 
   const handleAnalyze = async (file, imageBase64) => {
@@ -24,7 +25,7 @@ export default function AnalyzePage() {
       formData.append("file", file);
       formData.append("imageBase64", imageBase64);
 
-      const response = await fetch("/api/analyze", {
+      const response = await fetch("/api/content-digital", {
         method: "POST",
         body: formData,
       });
@@ -33,9 +34,8 @@ export default function AnalyzePage() {
       if (!response.ok) {
         throw new Error(result.error);
       }
-      console.log(result);
-
       setCurrentResult(result.data);
+      setResultKey((k) => k + 1);
     } catch (err) {
       setError(err);
       console.error("Analysis error:", err);
@@ -50,11 +50,12 @@ export default function AnalyzePage() {
       <div className="text-center space-y-2">
         <div className="flex items-center justify-center gap-2">
           <h1 className="text-4xl font-bold text-gray-900">
-            Analyze Image Generator
+            Content Digital Generator - Ubah Foto Produk UMKM Menjadi Konten
+            Pemasaran Digital
           </h1>
         </div>
         <p className="text-gray-600 text-sm sm:text-base max-w-3xl mx-auto">
-          Solusi cepat bagi UMKM untuk menghasilkan konten pemasaran digital
+          Solusi cepat bagi anda untuk menghasilkan konten pemasaran digital
           dari satu foto produk. Sistem otomatis kami menyiapkan deskripsi
           marketplace, ide konten, dan caption media sosial yang relevan
           sehingga anda dapat fokus pada pengembangan bisnis.
@@ -79,7 +80,7 @@ export default function AnalyzePage() {
         <div className="order-2 md:col-start-2 md:row-start-1 md:row-span-2 w-full">
           {currentResult ? (
             <div className="w-full max-h-[70vh] md:max-h-[72vh] overflow-auto">
-              <AnalyzeResult result={currentResult} />
+              <AnalyzeResult key={resultKey} result={currentResult} />
             </div>
           ) : (
             <div className="h-full flex items-center justify-center bg-white rounded-lg border border-gray-100">
@@ -96,8 +97,8 @@ export default function AnalyzePage() {
         </div>
       </div>
 
-      <Steps />
       <Example />
+      <Steps />
     </div>
   );
 }

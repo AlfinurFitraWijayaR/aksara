@@ -9,7 +9,7 @@ export default function FeatureShowcase() {
   const [activeTab, setActiveTab] = useState("analyze-image");
 
   const tabs = [
-    { id: "analyze-image", label: "AI Analyze Image", icon: Sparkles },
+    { id: "analyze-image", label: "Content Digital Generator", icon: Sparkles },
     { id: "chatbot", label: "ASMA AI Chat", icon: MessageSquare },
     { id: "health-check", label: "Business Health Check", icon: Stethoscope },
   ];

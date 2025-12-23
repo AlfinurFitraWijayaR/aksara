@@ -12,7 +12,7 @@ export const AnalyzeImageFeature = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full p-2">
         {/* Left: Upload Area */}
         <div
-          className="relative group cursor-pointer"
+          className="relative group"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
@@ -87,7 +87,7 @@ export const AnalyzeImageFeature = () => {
           </Card>
         </div>
       </div>
-      <ProtectedLink href="/analyze">
+      <ProtectedLink href="/content-digital">
         <Button className="mt-6.5 w-2/3 mx-auto cursor-pointer bg-slate-900 h-10 rounded-md transition-colors flex items-center justify-center group shadow-md">
           Coba Sekarang
           <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />

@@ -6,7 +6,7 @@ export function cn(...inputs) {
 }
 
 export const ALLOWED_EXTENSIONS = [".svg", ".jpg", ".jpeg", ".png"];
-export const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
+export const MAX_FILE_SIZE = 1 * 1024 * 1024;
 export const ALLOWED_IMAGE_TYPES = [
   "image/svg+xml",
   "image/jpeg",
@@ -19,21 +19,17 @@ export const validateImageFile = (file) => {
     return { valid: false, error: "File tidak ditemukan" };
   }
 
-  // Check file size
   if (file.size > MAX_FILE_SIZE) {
     return { valid: false, error: `Ukuran file maksimal 1MB` };
   }
 
-  // Check file type
   if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
     return {
       valid: false,
-      error:
-        "Format file tidak didukung. Hanya .svg, .jpg, .jpeg, .png yang diperbolehkan",
+      error: "Format file tidak didukung!",
     };
   }
 
-  // Check file extension
   const fileName = file.name.toLowerCase();
   const hasValidExtension = ALLOWED_EXTENSIONS.some((ext) =>
     fileName.endsWith(ext)
@@ -56,4 +52,13 @@ export const fileToBase64 = (file) => {
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
+};
+
+export const formatIDR = (value) => {
+  if (!value) return "";
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
+  }).format(value);
 };

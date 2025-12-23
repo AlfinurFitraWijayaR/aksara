@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ASMA AI: Asisten Marketing Cerdas UMKM 🚀
 
-## Getting Started
+> Solusi cerdas berbasis web untuk membantu UMKM dalam manajemen pemasaran dan diagnosa kesehatan finansial.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📖 Tentang Proyek
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**ASMA AI** adalah aplikasi web inovatif yang dirancang untuk menjawab tantangan utama yang dihadapi oleh Usaha Mikro, Kecil, dan Menengah (UMKM): **literasi keuangan** dan **pemasaran digital**.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Fitur Unggulan
 
-## Learn More
+### 1. 🤖 Digital Content Generator (Image-to-Text)
 
-To learn more about Next.js, take a look at the following resources:
+- **Generate Caption:** Membuat _caption_ Sosial Media yang menarik secara instan.
+- **Ide Konten:** Memberikan rekomendasi strategi konten yang disesuaikan dengan jenis usaha.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. 📊 Diagnosa Kesehatan Finansial
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Input data keuangan sederhana.
+- Mendapatkan skor kesehatan finansial dan rekomendasi perbaikan otomatis dari AI.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠️ Teknologi yang Digunakan
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Proyek ini dibangun menggunakan _tech stack_ modern untuk menjamin performa dan skalabilitas:
+
+- **Frontend:** [Next.js](https://nextjs.org/) (React Framework)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Model LLM:** [Google Gemini API](https://ai.google.dev/)
+- **Database:** [Supabase](https://supabase.com/)
+- **Deployment:** [Vercel](https://vercel.com/)
+
+---
+
+## 🚀 Cara Instalasi & Menjalankan (Local)
+
+Ikuti langkah-langkah berikut untuk menjalankan proyek ini di komputer Anda:
+
+### Prasyarat
+
+- Node.js (versi 18 atau terbaru)
+- NPM atau Yarn
+- API Key dari Google Gemini AI
+
+### Langkah-langkah
+
+1.  **Clone Repositori**
+
+    ```bash
+    git clone https://github.com/AlfinurFitraWijayaR/asma-ai.git
+    cd aksara-project
+    ```
+
+2.  **Install Dependencies**
+
+    ```bash
+    npm install
+    # atau
+    yarn install
+    ```
+
+3.  **Konfigurasi Environment Variable**
+    Buat file `.env.local` di direktori utama proyek, lalu tambahkan konfigurasi berikut:
+
+    ```env
+    NEXT_PUBLIC_GEMINI_API_KEY=masukkan_api_key_gemini_anda_disini
+    # Tambahkan env variable lain jika ada (misal database URL)
+    ```
+
+4.  **Jalankan Server Development**
+
+    ```bash
+    npm run dev
+    ```
+
+5.  **Buka Aplikasi**
+    Buka browser dan kunjungi `http://localhost:3000`.
+
+---
+
+## 👥 Tim Pengembang
+
+Proyek ini dikembangkan sebagai bagian dari tugas akhir mata kuliah _capstone project_.
+
+- **Alfinur Fitra Wijaya.R** - _Project Manager & Fullstack Developer_
+
+- **Faizal Anugrah Pratama** - _Fullstack Developer_
+
+- **Muqit Ridho** - _UI/UX Design_
+
+---

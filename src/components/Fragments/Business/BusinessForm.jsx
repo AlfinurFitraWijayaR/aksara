@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { formatIDR } from "@/lib/utils";
 import { Activity, CreditCard, TrendingUp, Wallet } from "lucide-react";
 
 export default function BusinessForm({
@@ -23,15 +24,6 @@ export default function BusinessForm({
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const formatIDR = (value) => {
-    if (!value) return "";
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      maximumFractionDigits: 0,
-    }).format(value);
   };
 
   return (
@@ -53,7 +45,7 @@ export default function BusinessForm({
             <SelectGroup>
               <SelectLabel>Kategori</SelectLabel>
               <SelectItem value="kuliner">🥗 Kuliner (F&B)</SelectItem>
-              <SelectItem value="fashion">⚠️ Fashion</SelectItem>
+              <SelectItem value="fashion">👕 Fashion</SelectItem>
               <SelectItem value="jasa">👑 Jasa/Layanan</SelectItem>
               <SelectItem value="retail">🏠 Retail/Toko Kelontongan</SelectItem>
               <SelectItem value="agribisnis">🪴 Agribisnis</SelectItem>

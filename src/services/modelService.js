@@ -25,6 +25,7 @@ export async function analyzeBusinessHealth(prompt) {
   const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL });
   const result = await model.generateContent(prompt);
   const response = await result.response;
+
   const text = extractTextFromResponse(response);
   return parseAnalysisResult(text);
 }
@@ -46,7 +47,7 @@ export async function checkDailyLimit(userId, featureName) {
     return { allowed: false, error: "Gagal mengecek kuota." };
   }
 
-  if (count !== null && count > 0) {
+  if (count !== null && count >= process.env.DAILYM) {
     return { allowed: false };
   }
 

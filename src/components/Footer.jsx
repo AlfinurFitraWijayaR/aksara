@@ -25,9 +25,9 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-slate-500">
               <li className="hover:text-violet-600 cursor-pointer">
                 <ProtectedLink
-                  href={`${process.env.NEXT_PUBLIC_SITE_URL}/analyze`}
+                  href={`${process.env.NEXT_PUBLIC_SITE_URL}/content-digital`}
                 >
-                  Analyze Image Generator
+                  Content Digital Generator
                 </ProtectedLink>
               </li>
               <li className="hover:text-violet-600 cursor-pointer">

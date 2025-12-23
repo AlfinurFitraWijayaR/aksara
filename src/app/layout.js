@@ -5,6 +5,12 @@ import Chatbot from "@/components/Fragments/Chatbot/page";
 import Providers from "@/components/Providers";
 import { createClientForServer } from "@/lib/supabase/server";
 
+export const metadata = {
+  title: "Asma AI",
+  description:
+    "Asma adalah platform AI yang membantu Anda untuk menghasilkan konten pemasaran digital dari satu foto produk. Sistem otomatis kami menyiapkan deskripsi marketplace, ide konten, dan caption media sosial yang relevan sehingga anda dapat fokus pada pengembangan bisnis.",
+};
+
 export default async function RootLayout({ children }) {
   const supabase = await createClientForServer();
   const {
